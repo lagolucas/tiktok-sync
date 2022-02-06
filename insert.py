@@ -14,5 +14,6 @@ engine = create_engine(URL(db['drivername'], db['username'], db['password'], db[
 for file in glob.glob("*.csv"):
     print(file)
     df = pd.read_csv(file, delimiter=',', quotechar='"')
+    df = df.assign(query=file.split('_')[0], captured_in=int(file.split('_')[1].replace(".csv", "")))
     df.to_sql('tiktok_raw', engine, if_exists='append')
     os.rename(file, file+'.old')
