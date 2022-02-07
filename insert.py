@@ -8,7 +8,7 @@ import pandas as pd
 with open("config.json") as jsonfile:
     db = load(jsonfile)['database']
 
-engine = create_engine(URL(db['drivername'], db['username'], db['password'], db['host'], db['port'], db['database']))
+engine = create_engine(URL(db['drivername'], db['username'], db['password'], db['host'], db['port'], db['database']), connect_args={'options': '-csearch_path={}'.format(db['schema'])})
 
 
 for file in glob.glob("*.csv"):
